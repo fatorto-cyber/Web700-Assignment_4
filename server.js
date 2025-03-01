@@ -30,6 +30,9 @@ var collegeData = require("./modules/collegeData.js");
 
 var app = express();
 
+// Serve static files from the "public" folder
+app.use(express.static("public")); 
+
 // GET /students - Returns all students or students by course
 app.get("/students", (req, res) => {
     if (req.query.course) {
