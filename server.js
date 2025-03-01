@@ -28,11 +28,18 @@ var express = require("express");
 var path = require("path");
 var collegeData = require("./modules/collegeData.js");
 
+
+
 var app = express();
+
+// Middleware to parse URL-encoded data (for form submissions)
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware to parse JSON data (for API requests)
+app.use(express.json());
 
 // Serve static files from the "public" folder
 app.use(express.static("public")); 
-
 // GET /students - Returns all students or students by course
 app.get("/students", (req, res) => {
     if (req.query.course) {
