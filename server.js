@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 // setup http server to listen on HTTP_PORT
 app.listen(HTTP_PORT, ()=>{console.log("server listening on port: " + HTTP_PORT)});
 
-*/
+
 
 var HTTP_PORT = process.env.PORT || 8080;
 var express = require("express");
@@ -87,6 +87,46 @@ app.get("/about", (req, res) => {
 // GET /htmlDemo - Returns htmlDemo.html
 app.get("/htmlDemo", (req, res) => {
     res.sendFile(path.join(__dirname, "/views/htmlDemo.html"));
+});
+
+// Handle 404 - No Matching Route
+app.use((req, res) => {
+    res.status(404).send("Page Not Found");
+});
+
+// Initialize collegeData before starting the server
+collegeData.initialize()
+    .then(() => {
+        app.listen(HTTP_PORT, () => {
+            console.log("server listening on port: " + HTTP_PORT);
+        });
+    })
+    .catch((err) => {
+        console.log("Error initializing data: " + err);
+    });
+*/
+// Existing code...
+var HTTP_PORT = process.env.PORT || 8080;
+var express = require("express");
+var path = require("path");
+var collegeData = require("./modules/collegeData.js");
+
+var app = express();
+
+// Middleware to parse URL-encoded data (for form submissions)
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware to parse JSON data (for API requests)
+app.use(express.json());
+
+// Serve static files from the "public" folder
+app.use(express.static("public")); 
+
+// Existing routes...
+
+// GET /students/add - Returns addStudent.html
+app.get("/students/add", (req, res) => {
+    res.sendFile(path.join(__dirname, "/views/addStudent.html"));
 });
 
 // Handle 404 - No Matching Route
