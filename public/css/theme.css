@@ -280,3 +280,7 @@ input[type="text"], input[type="email"], select {
 .btn-primary:hover {
     background-color: #2e255a;
 }
+
+/* Override active nav link color 
+.navbar-nav .nav-item.active .nav-link {
+    color: #007bff !important; /* Bootstrap blue color */
